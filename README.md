@@ -2,7 +2,8 @@ README for Sales Data Analysis
 ==============================
 
 This Python script analyzes sales data from a CSV file, "SalesDataAnalysis.csv". It processes the data to answer several business questions related to product sales, trends, and customer behaviors. The script utilizes **pandas**, **matplotlib**, and **seaborn** for data manipulation, analysis, and visualization.
-Requirements
+
+## Requirements
 
 ------------
 
