@@ -34,15 +34,45 @@ print(top_3_categories_revenue)
 
 # Question 2: What percentage of overall Sales do each of the categories contribute in 2019?
 
+# Convert 'Order Date' to datetime objects if not already done
+sales_data['Order Date'] = pd.to_datetime(sales_data['Order Date'], format='%d-%m-%Y %H:%M')
+
+# Filter data for the year 2019
+sales_2019 = sales_data[sales_data['Order Date'].dt.year == 2019].copy()
+
+# Calculate total sales for each product category in 2019
+category_sales_2019 = sales_2019.groupby('Product Category')['Sales'].sum()
+
+# Calculate overall sales in 2019
+overall_sales_2019 = sales_2019['Sales'].sum()
+
+# Calculate the percentage contribution of each category
+category_percentage_2019 = (category_sales_2019 / overall_sales_2019) * 100
+
+# Print the results
+print("Percentage of overall sales contributed by each category in 2019:")
+print(category_percentage_2019.sort_values(ascending=False))
 
 
 
 # Question 3: Which product category shows the widest price range of products?
 
+# Calculate the minimum and maximum price for each product category
+price_range_by_category = sales_data.groupby('Product Category')['Price Each'].agg(['min', 'max'])
 
+# Calculate the price range for each category
+price_range_by_category['Price Range'] = price_range_by_category['max'] - price_range_by_category['min']
+
+# Find the product category with the widest price range
+widest_price_range_category = price_range_by_category.sort_values(by='Price Range', ascending=False).head(1)
+
+# Print the result
+print("Product category with the widest price range:")
+print(widest_price_range_category)
 
 
 # Question 4: Plot the Sales trend for iPhone on a Monthly basis.
+
 # Filter iPhone Data
 iphone_sales = sales_data[sales_data['Product'] == 'iPhone'].copy()
 # Convert 'Order Date' to datetime
@@ -67,6 +97,7 @@ plt.show()
 
 
 # Question 5: For every city, list the products that have not yet been sold in that city.
+
 # Get all unique products and cities
 
 all_products = sales_data['Product'].unique()
@@ -99,8 +130,8 @@ for city, products in products_not_sold_by_city.items():
     
 
 
-
 # Question 6: List the top 3 cities in terms of the number of orders for each time of the day (Morning/Afternoon/Evening/Night).
+
 # Group by Time of Day and City, and count the number of orders
 city_orders_by_time = sales_data.groupby(['Time of Day', 'City']).size().reset_index(name='Number of Orders')
 
