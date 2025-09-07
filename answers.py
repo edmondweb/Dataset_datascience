@@ -30,8 +30,40 @@ print("Revenue generated from the three top-selling product categories:")
 print(top_3_categories_revenue)
 
 
+# Question 2: What percentage of overall Sales do each of the categories contribute in 2019?
 
 
+
+
+# Question 3: Which product category shows the widest price range of products?
+
+
+
+
+# Question 4: Plot the Sales trend for iPhone on a Monthly basis.
+
+
+
+
+# Question 5: For every city, list the products that have not yet been sold in that city.
+
+
+
+
+
+# Question 6: List the top 3 cities in terms of the number of orders for each time of the day (Morning/Afternoon/Evening/Night).
+
+
+
+# Question 7: Find the top 3 customers by Sales.
+top_customers = sales_data.groupby('Purchase Address')['Sales'].sum().sort_values(ascending=False).head(3)
+print("The top 3 customers by Sales:")
+print(top_customers)
+
+
+top_customers = sales_data.groupby('Customer_ID')['Sales'].sum().sort_values(ascending=False).head(3)
+print("The top 3 customers by Sales:")
+print(top_customers)
 
 
 
